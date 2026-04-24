@@ -1,0 +1,27 @@
+import pandas as pd
+
+# slice_result is a list of dicts — one per neighborhood (collected from fleet slices)
+neighborhood_rankings = pd.DataFrame(slice_result)
+
+# Assign neighborhood_rank: rank 1 = highest composite_score (best investment opportunity)
+neighborhood_rankings["neighborhood_rank"] = (
+    neighborhood_rankings["composite_score"]
+    .rank(ascending=False, method="min")
+    .astype(int)
+)
+
+# Sort by rank for readability
+neighborhood_rankings = neighborhood_rankings.sort_values("neighborhood_rank").reset_index(drop=True)
+
+print("=" * 65)
+print("🏆  NEIGHBORHOOD INVESTMENT RANKINGS")
+print("=" * 65)
+print(neighborhood_rankings[[
+    "neighborhood_rank", "neighborhood", "avg_value_score",
+    "undervalued_count", "bargain_density", "composite_score",
+    "avg_price_per_sqft", "total_listings"
+]].to_string(index=False))
+print("=" * 65)
+print(f"\n✅ All {len(neighborhood_rankings)} neighborhoods processed in parallel and ranked.")
+print(f"   Total undervalued properties across market: {neighborhood_rankings['undervalued_count'].sum()}")
+print(f"   Best opportunity: {neighborhood_rankings.iloc[0]['neighborhood']} (rank #1, composite={neighborhood_rankings.iloc[0]['composite_score']})")

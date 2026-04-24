@@ -1,0 +1,395 @@
+id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+name: Real_Estate_Agent_Project
+project_id: 4917b5c5-680d-4e6a-a530-e14b48734028
+global_imports: []
+python_global_imports: ''
+r_global_imports: ''
+requirements: []
+linux_packages: []
+environment_variables: []
+is_public: false
+organization_id: 98e59023-13a8-4351-958b-938469f2f7fc
+layers:
+- blocks:
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Loads 20 years of historical macro data (mortgage rates, housing
+      starts, CPI, Case-Shiller HPI) from FRED API with fallback to realistic mock
+      data. Labels monthly observations with 5 known market cycles (2008 Crisis, 2012
+      Recovery, 2020 COVID, 2021-22 Boom, 2023 Rate Correction) and derives trend
+      indicators (YoY inflation, HPI growth, housing starts MA). Outputs historical_cycles_df
+      (monthly detail) and cycle_summary (aggregated metrics per cycle).
+    height: 1000
+    id: 24106ac7-0c51-4f5c-9fb0-9ab87d46a21a
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: historical_market_cycles
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 0
+    y: 6000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Backtests boss agent's recommendation logic against 5 historical
+      housing market cycles. Computes heat index and property value scores, generates
+      buy/hold/sell recommendations, and validates accuracy against actual price changes
+      measured by Case-Shiller HPI. Reports win rate, precision/recall by class, and
+      visualizations.
+    height: 1000
+    id: 325bb04e-efe6-471e-b19f-0cf30bd8b3e4
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: backtest_boss_agent
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 2000
+    y: 6000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: 'Creates interactive Plotly charts to visualize backtest results:
+      20-year market heat index timeline with HPI changes, confusion matrix comparing
+      predicted vs actual market calls, and per-cycle win-rate analysis with price
+      trends. Displays system accuracy summary with pass/fail breakdown.'
+    height: 1000
+    id: 6a6ff5d0-2a04-4382-817f-b9ca936df3a2
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: backtest_plotly_charts
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 4000
+    y: 6000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Analyzes property metrics for a single neighborhood slice, calculating
+      average value score, bargain density, price-per-sqft stats, and a composite
+      ranking score for investment opportunity evaluation.
+    height: 1000
+    id: 6f91e590-e09a-4008-aa6e-42e3e66bc6b7
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: analyze_neighborhood
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 8000
+    y: 0
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: "Validates economist_agent CSV outputs against 4 test suites: data\
+      \ integrity (required columns, nulls, date span), market heat index range [1\u2013\
+      10], and trend consistency (MoM changes finite, CPI/heat correlation). Raises\
+      \ assertion if any test fails."
+    height: 1000
+    id: 7c9e9a9d-56d0-4032-b222-cc1ed844e94e
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: economist_agent_tests
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 2000
+    y: 3000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Generates a personalized, conversational real estate advisor response
+      for first-time homebuyers, synthesizing neighborhood recommendations, market
+      conditions, and user intent into clear, actionable guidance in plain English.
+    height: 1000
+    id: 86e9a21f-b85b-4bf1-a0e1-efc2792ef2c9
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: nl_response
+    parent_id: null
+    properties:
+      all_blocks_context_in_prompt: false
+      id: null
+      inputModalities: null
+      max_tokens: 4096
+      model: eu.anthropic.claude-opus-4-6-v1
+      modelId: null
+      modelName: null
+      modelType: null
+      model_input_image: null
+      outputModalities: null
+      output_variable: output
+      provider: bedrock
+      region: eu-west-1
+      system_prompt: null
+      temperature: 0.5
+    status: 4
+    type: 9
+    variables: null
+    width: 1600
+    x: 14000
+    y: 9000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Generates synthetic real estate dataset with 150 properties across
+      5 neighborhoods, including price, sqft, bedrooms, bathrooms, plus 8 deliberate
+      bargain outliers for analysis.
+    height: 1000
+    id: 911a4b96-8127-44b1-82d2-89ce6c80b565
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: generate_real_estate_data
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 0
+    y: 0
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: 'Generates 4 publication-ready visualizations analyzing property
+      values: avg price/sqft by neighborhood, property value score distribution, bargain
+      outlier detection scatter plot, and bargain outlier counts. Uses dark theme
+      (Zerve design system).'
+    height: 1000
+    id: a52dfbe3-c7e6-471c-9d16-59d7ffbbb58b
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: appraiser_visualizations
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 4000
+    y: 0
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Synthesizes market heat index with property value scores to generate
+      buy/hold/sell recommendations for each neighborhood using a decision matrix
+      that balances macro market conditions with micro asset quality.
+    height: 1000
+    id: bc77e11b-4fa9-44cc-8767-2ea464f7c4c2
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: boss_agent
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 12000
+    y: 3000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Aggregates parallel neighborhood analysis results and ranks neighborhoods
+      by investment potential using a composite score, displaying top opportunities
+      with key metrics like valuation, bargain density, and undervalued property counts.
+    height: 1000
+    id: d451eafb-e4fd-4d41-9078-d4e124b50391
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: neighborhood_rankings
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 15
+    variables: null
+    width: 1600
+    x: 10000
+    y: 0
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Natural language parser for real estate queries that extracts neighborhood,
+      user intent (buy/sell/invest/compare), and risk preference (low/moderate/high)
+      using regex pattern matching.
+    height: 1000
+    id: db4f83be-fdc4-42d0-98da-211a0c30657a
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: nl_query_engine
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 0
+    y: 9000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Distributes property data across parallel workflows by neighborhood.
+      Extracts unique neighborhoods and uses spread() to create one execution slice
+      per neighborhood for distributed processing.
+    height: 1000
+    id: e5864371-638b-45e4-b19a-44fc8fcf4d79
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: neighborhood_fleet
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 6000
+    y: 0
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Analyzes housing market dynamics by loading FRED economic data (mortgage
+      rates, housing starts, CPI inflation) and computing a composite Market Heat
+      Index (1-10 scale) that combines mortgage pressure, supply constraints, and
+      inflation momentum. Renders 4 interactive charts with market condition assessment.
+    height: 1000
+    id: e96a8595-37b9-4da2-8636-d9ed03aaae1c
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: economist_agent
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 0
+    y: 3000
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: Analyzes real estate properties by calculating price-per-sqft statistics
+      per neighborhood, identifying bargain outliers with z-scores < -1, generating
+      value scores (1-10), and producing neighborhood summaries with pricing metrics
+      and appraisal insights.
+    height: 1000
+    id: e9d4f5a7-37d0-49e7-a2b8-b96052b17cfb
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: appraiser_agent
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 2000
+    y: 0
+  - auto_size: false
+    canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    compute_settings: null
+    description: "Generates a human-friendly real estate advisor report with buy/hold/sell\
+      \ recommendations, market conditions, mortgage rates, construction trends, and\
+      \ neighborhood rankings\u2014presented in plain English with emoji indicators\
+      \ and formatted boxes."
+    height: 1000
+    id: effb70b2-58f2-48eb-b5bc-ee0b20ccc504
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    name: nl_report
+    parent_id: null
+    properties: {}
+    status: 3
+    type: 1
+    variables: null
+    width: 1600
+    x: 14000
+    y: 10400
+  canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+  edges:
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 07d82187-5b49-4eb1-907a-e4a8a69b15eb
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: 24106ac7-0c51-4f5c-9fb0-9ab87d46a21a
+    target: 325bb04e-efe6-471e-b19f-0cf30bd8b3e4
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 248addd6-e83c-49ab-9fa4-71861d73ac72
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: d451eafb-e4fd-4d41-9078-d4e124b50391
+    target: bc77e11b-4fa9-44cc-8767-2ea464f7c4c2
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 2ca36034-83a6-4a11-bdc9-8616b19c57c6
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: 6f91e590-e09a-4008-aa6e-42e3e66bc6b7
+    target: d451eafb-e4fd-4d41-9078-d4e124b50391
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 3a7c04f0-9552-491c-9397-b93d386c557b
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: d451eafb-e4fd-4d41-9078-d4e124b50391
+    target: effb70b2-58f2-48eb-b5bc-ee0b20ccc504
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 48a1aec5-2773-4bdf-b9b1-16da3e8fb280
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: db4f83be-fdc4-42d0-98da-211a0c30657a
+    target: 86e9a21f-b85b-4bf1-a0e1-efc2792ef2c9
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 50003ece-8457-4305-9d13-a7ae92d123c6
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: 325bb04e-efe6-471e-b19f-0cf30bd8b3e4
+    target: 6a6ff5d0-2a04-4382-817f-b9ca936df3a2
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 5a5a0860-bd2e-471c-b162-77914126a836
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: bc77e11b-4fa9-44cc-8767-2ea464f7c4c2
+    target: 86e9a21f-b85b-4bf1-a0e1-efc2792ef2c9
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 83689c40-302b-43dc-8b22-c3285420e229
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: d451eafb-e4fd-4d41-9078-d4e124b50391
+    target: 86e9a21f-b85b-4bf1-a0e1-efc2792ef2c9
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 8f31f9bc-123f-4b40-930e-79ce96fdbfd6
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: db4f83be-fdc4-42d0-98da-211a0c30657a
+    target: effb70b2-58f2-48eb-b5bc-ee0b20ccc504
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: 9ae48bc3-78be-4ccf-86d2-e6d5809c34f7
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: e5864371-638b-45e4-b19a-44fc8fcf4d79
+    target: 6f91e590-e09a-4008-aa6e-42e3e66bc6b7
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: ab81b78a-2d5b-4ef4-8f51-583549c0bf6a
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: 911a4b96-8127-44b1-82d2-89ce6c80b565
+    target: e9d4f5a7-37d0-49e7-a2b8-b96052b17cfb
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: c83b34af-146c-4152-a3d7-c2486cc436f5
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: e96a8595-37b9-4da2-8636-d9ed03aaae1c
+    target: 7c9e9a9d-56d0-4032-b222-cc1ed844e94e
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: d005c66b-0425-482c-a0bf-afb685ed4b84
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: e96a8595-37b9-4da2-8636-d9ed03aaae1c
+    target: bc77e11b-4fa9-44cc-8767-2ea464f7c4c2
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: d7ac2ca3-5d93-43b9-ae64-42f4a1f17754
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: bc77e11b-4fa9-44cc-8767-2ea464f7c4c2
+    target: effb70b2-58f2-48eb-b5bc-ee0b20ccc504
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: efc996e3-9408-4619-8f88-50abe14e0922
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: a52dfbe3-c7e6-471c-9d16-59d7ffbbb58b
+    target: e5864371-638b-45e4-b19a-44fc8fcf4d79
+  - canvas_id: 4d4b92e6-bd31-405e-81af-a4844a20b63f
+    id: f20f93f6-d860-45f8-8130-53c89a71414b
+    layer_id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+    source: e9d4f5a7-37d0-49e7-a2b8-b96052b17cfb
+    target: a52dfbe3-c7e6-471c-9d16-59d7ffbbb58b
+  id: 04de3f7f-6ec5-4061-83ce-ff249011ca88
+  name: Development
+  type: 1
+assets: []

@@ -1,0 +1,33 @@
+{% set top = recommendations_df.iloc[0] %}
+{% set queried_nbhd = parsed_query.get('neighborhood') or top['neighborhood'] %}
+{% set nbhd_row = recommendations_df[recommendations_df['neighborhood'] == queried_nbhd] %}
+{% if nbhd_row.empty %}
+{% set nbhd_row = recommendations_df.iloc[[0]] %}
+{% set queried_nbhd = top['neighborhood'] %}
+{% endif %}
+{% set rec = nbhd_row.iloc[0]['recommendation'] %}
+{% set prop_score = nbhd_row.iloc[0]['property_value_score'] %}
+{% set heat = market_heat_index %}
+{% set logic = nbhd_row.iloc[0]['logic_explanation'] %}
+{% set intent = parsed_query.get('intent', 'buy') %}
+{% set risk = parsed_query.get('risk_level', 'moderate') %}
+{% set top_nbhd = neighborhood_rankings.iloc[0]['neighborhood'] %}
+{% set top_rank_score = neighborhood_rankings.iloc[0]['composite_score'] %}
+
+A first-time homebuyer just asked: "{{ parsed_query['raw_query'] }}"
+
+Here is what our analysis shows:
+- Neighborhood they asked about: {{ queried_nbhd }}
+- Our recommendation: {{ rec }}
+- Market temperature right now: {{ "%.1f"|format(heat) }} out of 10 ({% if heat >= 7 %}it's a hot seller's market{% elif heat >= 4 %}it's a balanced market{% else %}it's a cool buyer's market{% endif %})
+- Neighborhood quality score: {{ "%.1f"|format(prop_score) }} out of 10
+- Top-ranked neighborhood overall: {{ top_nbhd }} (score: {{ "%.2f"|format(top_rank_score) }})
+- User's intent: {{ intent }} | risk preference: {{ risk }}
+- Expert logic: {{ logic }}
+
+Please respond like a warm, trusted real estate advisor speaking directly to this person. In 2–3 plain English sentences:
+1. Tell them clearly what you recommend ({{ rec }}) and whether {{ queried_nbhd }} is a good fit for their goal to {{ intent }}.
+2. Explain the simple reason why in everyday language — no scores, no formulas, just common sense.
+3. If relevant, mention whether now is a good or tough time to be a buyer or seller based on the market temperature.
+
+Keep it conversational, encouraging, and actionable.
